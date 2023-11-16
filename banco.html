@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banco</title>
+  </head>
+  <body>
+    <h1>Banco</h1>
+
+    <div id="resultados"></div>
+
+    <h2>Operaciones</h2>
+
+    <form id="depositoForm">
+      <label for="montoDeposito">Monto a depositar:</label>
+      <input type="number" id="montoDeposito" required />
+      <button type="button" onclick="realizarDeposito()">Depositar</button>
+    </form>
+
+    <form id="retiroForm">
+      <label for="montoRetiro">Monto a retirar:</label>
+      <input type="number" id="montoRetiro" required />
+      <button type="button" onclick="realizarRetiro()">Retirar</button>
+    </form>
+
+    <form id="codigoPostal">
+      <label for="codigoPostal">Ingrese su codigo:</label>
+      <input type="text" id="codigoPostal" required />
+      <button type="button" onclick="verificarCodigo()">verificar</button>
+    </form>
+
+    <button type="button" onclick="consultarSaldo()">Consultar Saldo</button>
+
+    <script>
+
+
+            class Cuenta {
+              constructor() {
+                this.saldo = 0;
+              }
+
+              depositar(monto) {
+                this.saldo += monto;
+                mostrarResultado(
+                  `Depósito de ${monto} realizado. Nuevo saldo: ${this.saldo}`
+                );
+              }
+
+              retirar(monto) {
+                if (monto <= this.saldo) {
+                  this.saldo -= monto;
+                  mostrarResultado(
+                    `Retiro de ${monto} realizado. Nuevo saldo: ${this.saldo}`
+                  );
+                } else {
+                  mostrarResultado("Fondos insuficientes.");
+                }
+              }
+
+              verificar(candidate) {
+                console.log(candidate,"candidate")
+                var patron = new RegExp("antonio")
+                return patron.test(candidate) 
+                ///^\d{5}-\d{4}$/.test(candidate);
+                }
+
+              consultarSaldo() {
+                mostrarResultado(`Saldo actual: ${this.saldo}`);
+              }
+            }
+
+            function mostrarResultado(mensaje) {
+              const resultadosDiv = document.getElementById("resultados");
+              resultadosDiv.innerHTML += `<p>${mensaje}</p>`;
+            }
+
+            const cuenta1 = new Cuenta();
+
+            function realizarDeposito() {
+              const montoDeposito = parseFloat(
+                document.getElementById("montoDeposito").value
+              );
+              cuenta1.depositar(montoDeposito);
+            }
+
+            function realizarRetiro() {
+              const montoRetiro = parseFloat(
+                document.getElementById("montoRetiro").value
+              );
+              cuenta1.retirar(montoRetiro);
+            }
+
+            function verificarCodigo() {
+              const codigo = parseFloat(
+                document.getElementById("codigoPostal").value
+              );
+              
+              console.log(cuenta1.verificar(codigo))
+            }
+
+            consultarSaldo()
+
+            function consultarSaldo() {
+              var a = 1;
+              cuenta1.consultarSaldo();
+            }
+
+
+
+            var ninja = {
+              whatever: function () {
+                switch (arguments.length) {
+                  case 0:
+                    console.log("No se paso ningun argumento")
+                    break;
+                  case 1:
+                    /* do something else */
+                    break;
+                  case 2:
+                    console.log(arguments[0]*arguments[1])
+                    break;
+                    case 3:
+                    console.log(arguments[0]+arguments[1]+arguments[2])
+                    break;
+                  //and so on ...
+                }
+              },
+            };
+
+            ninja.whatever(1,2,3)
+    </script>
+  </body>
+</html>
